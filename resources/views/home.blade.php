@@ -46,7 +46,7 @@
                                         data-toggle="tooltip"
                                         data-html="true"
                                         data-placement="right"
-                                        title="<img src='{{ asset($receipt->image) }}' alt='{{ $receipt->code }}'>"
+                                        title="<img src='{{ asset($receipt->image) }}' alt='{{ $receipt->code }}' style='width:300px;'>"
                                     >
                                         {{ $receipt->code }}
                                     </span>

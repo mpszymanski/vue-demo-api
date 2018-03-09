@@ -1,5 +1,7 @@
 <?php
 
+use App\Creators\ReceiptCreator;
+use App\Http\Requests\ReceiptRequest;
 use Illuminate\Http\Request;
 
 /*
@@ -15,4 +17,16 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::post('/create', function (ReceiptRequest $request) {
+	$creator = new ReceiptCreator($request);
+	
+	try {
+		$creator->store();
+
+		return response('Receipt Created!', 201);
+	} catch(\Exception $e) {
+		return response('Whoops! Something went wrong! ' . $e->getMessage(), 500);
+	}
 });
