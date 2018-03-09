@@ -47,13 +47,23 @@ class HomeController extends Controller
             $status = (int) request()->get('status');
             $receipt->update(compact('status'));
 
-            return redirect()->back();
+            return redirect()
+                ->back()
+                ->with('message', 'Receipt was updated!');
 
         } catch(\Exception $e) {
             return redirect()
                 ->back()
                 ->with('message', 'Opss! Something went wrong!');
         }
-        
+    }
+
+    public function destroy(Receipt $receipt)
+    {
+        $receipt->delete();
+
+        return redirect()
+                ->back()
+                ->with('message', 'Receipt was deleted!');
     }
 }

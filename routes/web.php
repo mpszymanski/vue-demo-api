@@ -18,5 +18,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/receipt', 'HomeController@index')->name('receipt');
-Route::get('/receipt/{receipt}', 'HomeController@status')->name('receipt.status');
+Route::post('/receipt/{receipt}', 'HomeController@status')->name('receipt.status');
+Route::delete('/receipt/{receipt}', 'HomeController@destroy')->name('receipt.destroy');
 

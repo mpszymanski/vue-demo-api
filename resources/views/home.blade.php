@@ -2,6 +2,11 @@
 
 @section('content')
 <div class="container">
+    @if(session('message'))
+        <div class="alert alert-success" role="alert">
+            {{ session('message') }}
+        </div>
+    @endif
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
@@ -22,9 +27,8 @@
                             <th>Shop zip</th>
                             <th>Number</th>
                             <th>Status</th>
-                            <th>Discount</th>
+                            <th>Discount Code</th>
                             <th>Created at</th>
-                            <th>Updated at</th>
                             <th></th>
                         </tr>
                         @foreach($receipts as $receipt)
@@ -54,15 +58,20 @@
                                     {{  $receipt->discount->code }}
                                 </td>
                                 <td>
-                                    {{ $receipt->updated_at }}
-                                </td>
-                                <td>
                                     {{ $receipt->created_at }}
                                 </td>
                                 <td>
-                                    <form action="{{ route('receipt.status', $receipt) }}">
+                                    <form action="{{ route('receipt.status', $receipt) }}" method="post" class="d-inline">
+                                        {{ csrf_field() }}
                                         <button class="btn btn-link" name="status" value="{{ !$receipt->status }}">
                                             <i class="material-icons">{{ $receipt->status ? 'clear' : 'check' }}</i>
+                                        </button>
+                                    </form>
+                                    <form action="{{ route('receipt.destroy', $receipt) }}" method="post" class="d-inline">
+                                        {{ csrf_field() }}
+                                        <input type="hidden" name="_method" value="delete">
+                                        <button class="btn btn-link" name="status" value="{{ !$receipt->status }}">
+                                            <i class="material-icons">delete</i>
                                         </button>
                                     </form>
                                 </td>
