@@ -1,6 +1,7 @@
 <?php
 
 use App\Creators\ReceiptCreator;
+use App\Events\ReceiptWasCreated;
 use App\Http\Requests\ReceiptRequest;
 use Illuminate\Http\Request;
 
@@ -23,7 +24,9 @@ Route::post('/create', function (ReceiptRequest $request) {
 	$creator = new ReceiptCreator($request);
 	
 	try {
-		$creator->store();
+		$receipt = $creator->store();
+
+		event(new ReceiptWasCreated($receipt));
 
 		return response('Receipt Created!', 201);
 	} catch(\Exception $e) {

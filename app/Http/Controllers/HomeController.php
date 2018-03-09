@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ReceiptWasConfirmed;
 use App\Receipt;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
 {
@@ -43,15 +45,21 @@ class HomeController extends Controller
      */
     public function status(Receipt $receipt)
     {
+event(new ReceiptWasConfirmed($receipt));
+        
         try {
             $status = (int) request()->get('status');
             $receipt->update(compact('status'));
+
+            if($status)
+                event(new ReceiptWasConfirmed($receipt));
 
             return redirect()
                 ->back()
                 ->with('message', 'Receipt was updated!');
 
         } catch(\Exception $e) {
+            Log::error($e->getMessage());
             return redirect()
                 ->back()
                 ->with('message', 'Opss! Something went wrong!');
