@@ -54,3 +54,12 @@ if (token) {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+
+/**
+ * Init bootstrap components.
+ */
+
+$(function () {
+  	$('[data-toggle="tooltip"]').tooltip()
+})
