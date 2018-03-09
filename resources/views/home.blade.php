@@ -22,6 +22,7 @@
                             <th>Shop zip</th>
                             <th>Number</th>
                             <th>Status</th>
+                            <th>Discount</th>
                             <th>Created at</th>
                             <th>Updated at</th>
                             <th></th>
@@ -42,17 +43,15 @@
                                     {{ $receipt->shop_zip }}
                                 </td>
                                 <td>
-                                    <span 
-                                        data-toggle="tooltip"
-                                        data-html="true"
-                                        data-placement="right"
-                                        title="<img src='{{ asset($receipt->image) }}' alt='{{ $receipt->code }}' style='width:300px;'>"
-                                    >
+                                    <a href="{{ asset($receipt->image) }}" target="_blank">
                                         {{ $receipt->code }}
-                                    </span>
+                                    </a>
                                 </td>
                                 <td>
                                     {!! $receipt->status_label !!}
+                                </td>
+                                <td>
+                                    {{  $receipt->discount->code }}
                                 </td>
                                 <td>
                                     {{ $receipt->updated_at }}

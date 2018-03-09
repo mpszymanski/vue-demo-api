@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class CreateReceiptsTable extends Migration
+class CreateDiscountCodesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -16,24 +16,21 @@ class CreateReceiptsTable extends Migration
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
-        Schema::create('receipts', function (Blueprint $table) {
+        Schema::create('discount_codes', function (Blueprint $table) {
             $table->increments('id');
-            $table->unique(['shop_zip', 'code']);
-            $table->integer('customer_id')
+            $table->integer('receipt_id')
                 ->unsigned()
                 ->index();
-            $table->foreign('customer_id')
+            $table->foreign('receipt_id')
                 ->references('id')
-                ->on('customers')
+                ->on('receipts')
                 ->onDelete('cascade');
             $table->tinyInteger('status')
-                ->default(0);
-            $table->string('shop_zip', 6);
-            $table->string('code', 12);
-            $table->string('image', 255);
+                ->default(1);
+            $table->string('code', 9)->unique();
             $table->timestamps();
         });
-        
+
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
     }
 
@@ -46,8 +43,8 @@ class CreateReceiptsTable extends Migration
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
-        Schema::dropIfExists('receipts');
-
+        Schema::dropIfExists('discount_codes');
+        
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
     }
 }

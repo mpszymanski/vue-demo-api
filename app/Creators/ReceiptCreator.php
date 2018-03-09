@@ -3,6 +3,7 @@
 namespace App\Creators;
 
 use App\Customer;
+use App\DiscountCode;
 use App\Receipt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -29,6 +30,7 @@ class ReceiptCreator
 
 		$customer = $this->storeCustomer();
 		$receipt = $this->storeReceipt($customer);
+		$discount = $this->storeDiscountCode($receipt);
 
 		DB::commit();
 
@@ -48,6 +50,19 @@ class ReceiptCreator
 		$receipt = $customer->receipts()->create($this->receipt_data);
 
 		return $receipt;
+	}
+
+	private function storeDiscountCode(Receipt $receipt)
+	{
+		$code = '';
+		do {
+			$code = rand(100000000,999999999);
+			$code_exists = DiscountCode::whereCode($code)->isAvailable()->exists();
+		} while($code_exists);
+
+		$discount = $receipt->discount()->create(compact('code'));
+
+		return $discount;
 	}
 
 	private function fileUpload()

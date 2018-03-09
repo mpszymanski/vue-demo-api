@@ -21,6 +21,11 @@ class Receipt extends Model
         return $this->belongsTo('App\Customer');
     }
 
+    public function discount()
+    {
+        return $this->hasOne('App\DiscountCode');
+    }
+
     public function getStatusLabelAttribute()
     {
         return $this->status ? 
