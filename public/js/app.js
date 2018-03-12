@@ -13604,8 +13604,13 @@ module.exports = __webpack_require__(36);
 __webpack_require__(12);
 
 $(function () {
-	$('.delete-action').on('submit', function (event) {
+	$('.delete-action').on('click', function (event) {
 		event.preventDefault();
+		var decision = confirm('Are you sure, you want remove this receipt?');
+		if (decision) {
+			console.log($(this));
+			$(this).parent('form').submit();
+		}
 	});
 });
 
