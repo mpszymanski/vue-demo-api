@@ -30,6 +30,7 @@ Route::post('/create', function (ReceiptRequest $request) {
 
 		return response('Receipt Created!', 201);
 	} catch(\Exception $e) {
+		Log::error($e->getMessage());
 		return response('Whoops! Something went wrong! ' . $e->getMessage(), 500);
 	}
 });

@@ -26,6 +26,11 @@ class Receipt extends Model
         return $this->hasOne('App\DiscountCode');
     }
 
+    public function setShopZipAttribute($value)
+    {
+        return $this->attributes['shop_zip'] = str_replace(' ', '', $value);
+    }
+
     public function getStatusLabelAttribute()
     {
         return $this->status ? 
