@@ -39,7 +39,7 @@ class ReceiptCreator
 
 	private function storeCustomer()
 	{
-		return Customer::firstOrCreate(
+		return Customer::updateOrCreate(
 			['email' => $this->customer_data['email']],
 			$this->customer_data
 		);
