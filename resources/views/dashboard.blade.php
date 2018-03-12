@@ -67,7 +67,7 @@
                                             <i class="material-icons">{{ $receipt->status ? 'clear' : 'check' }}</i>
                                         </button>
                                     </form>
-                                    <form action="{{ route('receipt.destroy', $receipt) }}" method="post" class="d-inline">
+                                    <form action="{{ route('receipt.destroy', $receipt) }}" method="post" class="d-inline delete-action">
                                         {{ csrf_field() }}
                                         <input type="hidden" name="_method" value="delete">
                                         <button class="btn btn-link" name="status" value="{{ !$receipt->status }}">

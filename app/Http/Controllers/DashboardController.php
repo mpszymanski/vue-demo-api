@@ -7,7 +7,7 @@ use App\Receipt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
-class HomeController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -33,7 +33,7 @@ class HomeController extends Controller
             ->orderBy('status', 'asc')
             ->paginate(10);
 
-        return view('home', 
+        return view('dashboard', 
             compact('receipts', 'confirmed_number', 'unconfirmed_number'));
     }
 

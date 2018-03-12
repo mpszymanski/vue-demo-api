@@ -17,9 +17,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/receipt', 'HomeController@index')->name('receipt');
-Route::post('/receipt/{receipt}', 'HomeController@status')->name('receipt.status');
-Route::delete('/receipt/{receipt}', 'HomeController@destroy')->name('receipt.destroy');
+Route::get('/receipt', 'DashboardController@index')->name('receipt');
+Route::post('/receipt/{receipt}', 'DashboardController@status')->name('receipt.status');
+Route::delete('/receipt/{receipt}', 'DashboardController@destroy')->name('receipt.destroy');
 
 Route::get('/mailable', function () {
     $data = App\Receipt::first();
